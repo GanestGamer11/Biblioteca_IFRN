@@ -1,0 +1,90 @@
+openapi: '3.0.1'
+info:
+  title: Biblioteca_IFRN
+  description: Aplicação de uma Biblioteca_IFRN.
+    Essa aplicação consiste numa API web de uma Bibloteca do IFRN Caicó
+  version: '1.1'
+servers:
+  - url: http://{host}:{porta}/api
+    variables:
+      host:
+        default: localhost
+      porta:
+        default: '8000'
+
+paths:
+  /listar:
+    get:
+      description: 'lista todos os livros'
+      responses:
+        '200':
+          description: OK
+  /cadastrar:
+    post:
+      description: ''
+      parameters: []
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+            {
+              "type": "object",
+              "properties": {
+                "titulo": 
+                  {
+                    "type" : "string"
+                  },
+                "autor":
+                  {
+                    "type" : "string"
+                  },
+                "descricao":
+                  {
+                    "type" : "string"
+                  },
+                "editora":
+                  {
+                    "type" : "string"
+                  },
+                "genero":
+                  {
+                    "type" : "string"
+                  }
+              }
+            }
+      responses:
+        '201':
+          description: livro cadastrado
+  /exibir/{id}:
+    post:
+      description: 'retorna as informações de um livro em especifico'
+      responses:
+        '200':
+          description: exibe um livro
+        '502':
+          description: o livro não existe
+  /remover/{id}:
+    get:
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: OK
+  /alugar/{id}:
+    get:
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: OK
+  /devolver/{id}:
+    get:
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      
+
+    
