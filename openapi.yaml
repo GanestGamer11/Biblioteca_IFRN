@@ -11,80 +11,129 @@ servers:
         default: localhost
       porta:
         default: '8000'
-
+        
 paths:
   /listar:
     get:
-      description: 'lista todos os livros'
+      summary: lista todos os livros
+      description: 'Lista todos os livros'
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                minItems: 0
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    titulo:
+                      type: string
+                    autor:
+                      type: string
+                    descricao:
+                      type: string
+                    editora:
+                      type: string
+                    genero:
+                      type: string
+
   /cadastrar:
     post:
-      description: ''
-      parameters: []
+      summary: cadastra um livro
+      description: 'Cadastrar um livro'
       requestBody:
         required: true
-        content: 
+        content:
           application/json:
             schema:
-            {
-              "type": "object",
-              "properties": {
-                "titulo": 
-                  {
-                    "type" : "string"
-                  },
-                "autor":
-                  {
-                    "type" : "string"
-                  },
-                "descricao":
-                  {
-                    "type" : "string"
-                  },
-                "editora":
-                  {
-                    "type" : "string"
-                  },
-                "genero":
-                  {
-                    "type" : "string"
-                  }
-              }
-            }
+              type: object
+              properties:
+                titulo:
+                  type: string
+                autor:
+                  type: string
+                descricao:
+                  type: string
+                editora:
+                  type: string
+                genero:
+                  type: string
       responses:
         '201':
-          description: livro cadastrado
-  /exibir/{id}:
-    post:
-      description: 'retorna as informações de um livro em especifico'
-      responses:
-        '200':
-          description: exibe um livro
-        '502':
-          description: o livro não existe
-  /remover/{id}:
-    get:
-      description: ''
-      parameters: []
-      responses:
-        '200':
-          description: OK
-  /alugar/{id}:
-    get:
-      description: ''
-      parameters: []
-      responses:
-        '200':
-          description: OK
-  /devolver/{id}:
-    get:
-      description: ''
-      parameters: []
-      responses:
-        '200':
-          description: OK
-      
+          description: Livro cadastrado
 
+  /exibir/{id}:
+    get:
+      summary: exibir um livro
+      description: 'Retorna as informações de um livro em específico'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: 'ID do livro a ser exibido'
+      responses:
+        '200':
+          description: Livro encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  titulo:
+                    type: string
+                  autor:
+                    type: string
+                  descricao:
+                    type: string
+                  editora:
+                    type: string
+                  genero:
+                    type: string
+        '502':
+          description: O livro não existe
+  /editar/{id}:
+    put:
+      summary: editar um livro
+      description: edita um livro em especifico
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  id:
+                    type: integer
+                  titulo:
+                    type: string
+                  autor:
+                    type: string
+                  descricao:
+                    type: string
+                  editora:
+                    type: string
+                  genero:
+                    type: string
+      responses:
+        200:
+          description: OK
+        404:
+          description: Publicação não encontrada.
+
+  /remover/{id}:
+    delete:
+      summary: deletar um livro
+      responses:
+        200:
+          description: OK
+        404:
+          description: Livro não encontrado
     
