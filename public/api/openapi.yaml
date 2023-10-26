@@ -1,8 +1,7 @@
 openapi: '3.0.1'
 info:
   title: Biblioteca_IFRN
-  description: Aplicação de uma Biblioteca_IFRN.
-    Essa aplicação consiste numa API web de uma Bibloteca do IFRN Caicó
+  description: Esse é um projeto de desenvolvimento de uma API para biblioteca do IFRN. Esse projeto foi desenvolvido com o objetivo de treinar e avaliar os conhecimentos adquiridos na disciplina de progamação orientada a serviços do curso informática para internet.
   version: '1.1'
 servers:
   - url: http://{host}:{porta}/api
