@@ -17,8 +17,59 @@ Entre na pasta e instale as requisições
 
     composer install
 
-[inserir mais informações depois]
+Após instaladas, basta rodar a API com o comando Laravel:
+    
+    php artisan serve
 
-## Rotas disponíveis na API
+Dessa forma, o sistema estará rodando na seguinte URI:
+
+    localhost:8000
+
+Você pode especificar uma porta personalizada com o comando (remova os cochetes):
+
+    php artisan serve --port=[portaEscolhida]
+
+## Funções disponíveis na API
+
+A API possuí um documento openapi.yml disponível para visualização no caminho public/api com uma descrição da utilização das rotas, porém, segue adiante uma lista das funções disponíveis e sua utilização.
+
+### Listar Livros
+
+**URL:** `GET api/listar`
+
+**Descrição:** Obtém a lista de todos os livros cadastrados.
+
+### Cadastrar Livro
+
+**URL:** `POST api/cadastrar`
+
+**Descrição:** Cadastra um novo livro com base nos dados fornecidos.
+
+### Exibir Livro
+
+**URL:** `GET api/exibir/{id}`
+
+**Descrição:** Exibe as informações de um livro específico com base no ID fornecido.
+
+### Editar Livro
+
+**URL:** `PUT api/editar/{id}`
+
+**Descrição:** Atualiza as informações de um livro específico com base no ID fornecido.
+
+**Parâmetros:**
+
+    titulo: string
+    autor: string
+    descricao: string
+    editora: string
+    genero: string
+
+
+### Remover Livro
+
+**URL:** `DELETE api/remover/{id}`
+
+**Descrição:** Remove um livro específico com base no ID fornecido.
 
     
