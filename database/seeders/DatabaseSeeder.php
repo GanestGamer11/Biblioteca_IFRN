@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Livro;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,5 +19,14 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        \App\Models\Livro::factory(10)->create();
+
+        \App\Models\Livro::factory()->create([
+            'titulo' => 'O pequeno principe',
+            'autor' => 'Aquele lá',
+            'descricao' => 'Livro dahora, lê ai',
+            'editora' => 'Aquela',
+            'genero' => 'sim',
+        ]);
     }
 }

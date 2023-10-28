@@ -1,7 +1,7 @@
 openapi: '3.0.1'
 info:
   title: Biblioteca_IFRN
-  description: Esse é um projeto de desenvolvimento de uma API para biblioteca do IFRN. Esse projeto foi desenvolvido com o objetivo de treinar e avaliar os conhecimentos adquiridos na disciplina de progamação orientada a serviços do curso informática para internet.
+  description: Esse é um projeto de desenvolvimento de uma API para biblioteca do IFRN. Esse projeto foi desenvolvido com o objetivo de treinar e avaliar os conhecimentos adquiridos na disciplina de progamação orientada a serviços do curso informática para internet.t
   version: '1.1'
 servers:
   - url: http://{host}:{porta}/api
@@ -102,6 +102,13 @@ paths:
     put:
       summary: editar um livro
       description: edita um livro em especifico
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: 'ID do livro a ser editado'
       requestBody:
         required: true
         content:
@@ -109,8 +116,6 @@ paths:
             schema:
               type: object
               properties:
-                  id:
-                    type: integer
                   titulo:
                     type: string
                   autor:
@@ -123,16 +128,24 @@ paths:
                     type: string
       responses:
         200:
-          description: OK
+          description: Livro editado
         404:
           description: Publicação não encontrada.
 
   /remover/{id}:
     delete:
       summary: deletar um livro
+      description: deleta um livro do banco de dados
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: 'ID do livro a ser deletado'
       responses:
         200:
-          description: OK
+          description: Livro deletado
         404:
           description: Livro não encontrado
     
