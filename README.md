@@ -43,6 +43,14 @@ A API possuí um documento openapi.yml disponível para visualização no caminh
 
 **URL:** `POST api/cadastrar`
 
+**Parâmetros:**
+
+    titulo: string
+    autor: string
+    descricao: string
+    editora: string
+    genero: string
+
 **Descrição:** Cadastra um novo livro com base nos dados fornecidos.
 
 ### Exibir Livro
