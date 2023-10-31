@@ -19,10 +19,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('listar', [LivrosController::class, 'index']);
-Route::post('cadastrar', [LivrosController::class, 'store']);
-Route::get('exibir/{id}', [LivrosController::class, 'show']);
-Route::put('editar/{id}', [LivrosController::class, 'update']);
-Route::delete('remover/{id}', [LivrosController::class, 'destroy']);
+Route::get('livros', [LivrosController::class, 'index']);
+Route::post('livros', [LivrosController::class, 'store']);
+Route::get('livros/{id}', [LivrosController::class, 'show']);
+Route::put('livros/{id}', [LivrosController::class, 'update']);
+Route::delete('livros/{id}', [LivrosController::class, 'destroy']);
 
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Livro;
+use App\Models\User;
+use Exception;
 
 class LivrosController extends Controller
 {
@@ -13,14 +15,19 @@ class LivrosController extends Controller
     public function index()
     {
         $livros = Livro::all();
-        return response()->json(['message' => 'Livro encontrado', "result" => $livros], 200);
+        return response()->json(['message' => 'Livros cadastrados', "result" => $livros], 200);
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {     
+        //verifica se o usuário está logado (a priori, apenas verificando se o campo 'email', possui um email válido)
+        $user = User::where('email', $request->email)->first();
+        if(!$user){
+            return response()->json(['message'=> 'Usuario precisa estar logado'],400);
+        }
         $livro  = Livro::create($request->all());
         $livro->save();
         return response()->json(['message' => 'Livro cadastrado'], 201);
@@ -43,8 +50,12 @@ class LivrosController extends Controller
      */
     public function update(Request $request, int $id)
     {
+        //verifica se o usuário está logado (a priori, apenas verificando se o campo 'email', possui um email válido)
+        $user = User::where('email', $request->email)->first();
+        if(!$user){
+            return response()->json(['message'=> 'Usuario precisa estar logado'],400);
+        }
         $livro = Livro::find($id);
-
         if (!$livro) {
             return response()->json(['message' => 'Livro não encontrado'], 404);
         }
@@ -57,6 +68,7 @@ class LivrosController extends Controller
      */
     public function destroy(int $id)
     {
+        //aqui verificaria se o usuario está logado e é admin
         $livro = Livro::find($id);
         if (!$livro) {
             return response()->json(['message' => 'Livro não encontrado'], 404);

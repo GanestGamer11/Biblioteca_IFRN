@@ -12,13 +12,13 @@ servers:
         default: '8000'
         
 paths:
-  /listar:
+  /livros:
     get:
       summary: lista todos os livros
       description: 'Lista todos os livros'
       responses:
         '200':
-          description: OK
+          description: Livros cadastrados
           content:
             application/json:
               schema:
@@ -39,8 +39,6 @@ paths:
                       type: string
                     genero:
                       type: string
-
-  /cadastrar:
     post:
       summary: cadastra um livro
       description: 'Cadastrar um livro'
@@ -51,6 +49,8 @@ paths:
             schema:
               type: object
               properties:
+                email:
+                  type: string
                 titulo:
                   type: string
                 autor:
@@ -64,8 +64,10 @@ paths:
       responses:
         '201':
           description: Livro cadastrado
+        '400':
+          description: Usuario precisa estar logado
 
-  /exibir/{id}:
+  /livros/{id}:
     get:
       summary: exibir um livro
       description: 'Retorna as informações de um livro em específico'
@@ -98,7 +100,6 @@ paths:
                     type: string
         '502':
           description: O livro não existe
-  /editar/{id}:
     put:
       summary: editar um livro
       description: edita um livro em especifico
@@ -116,6 +117,8 @@ paths:
             schema:
               type: object
               properties:
+                  email:
+                    type: string
                   titulo:
                     type: string
                   autor:
@@ -129,10 +132,10 @@ paths:
       responses:
         200:
           description: Livro editado
+        400:
+          description: Usuario precisa estar logado
         404:
-          description: Publicação não encontrada.
-
-  /remover/{id}:
+          description: Livro não encontrado.
     delete:
       summary: deletar um livro
       description: deleta um livro do banco de dados
@@ -146,6 +149,8 @@ paths:
       responses:
         200:
           description: Livro deletado
+        400:
+          description: Usuario precisa estar logado
         404:
           description: Livro não encontrado
     
