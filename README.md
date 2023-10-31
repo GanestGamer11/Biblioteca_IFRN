@@ -35,13 +35,13 @@ A API possuí um documento openapi.yml disponível para visualização no caminh
 
 ### Listar Livros
 
-**URL:** `GET api/listar`
+**URL:** `GET api/livros`
 
 **Descrição:** Obtém a lista de todos os livros cadastrados.
 
 ### Cadastrar Livro
 
-**URL:** `POST api/cadastrar`
+**URL:** `POST api/livros`
 
 **Parâmetros:**
 
@@ -55,13 +55,13 @@ A API possuí um documento openapi.yml disponível para visualização no caminh
 
 ### Exibir Livro
 
-**URL:** `GET api/exibir/{id}`
+**URL:** `GET api/livros/{id}`
 
 **Descrição:** Exibe as informações de um livro específico com base no ID fornecido.
 
 ### Editar Livro
 
-**URL:** `PUT api/editar/{id}`
+**URL:** `PUT api/livros/{id}`
 
 **Descrição:** Atualiza as informações de um livro específico com base no ID fornecido.
 
@@ -76,7 +76,7 @@ A API possuí um documento openapi.yml disponível para visualização no caminh
 
 ### Remover Livro
 
-**URL:** `DELETE api/remover/{id}`
+**URL:** `DELETE api/livros/{id}`
 
 **Descrição:** Remove um livro específico com base no ID fornecido.
 
