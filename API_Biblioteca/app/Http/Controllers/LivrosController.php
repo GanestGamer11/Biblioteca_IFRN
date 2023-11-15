@@ -23,7 +23,7 @@ class LivrosController extends Controller
      */
     public function store(Request $request)
     {     
-        //verifica se o usuário está logado (a priori, apenas verificando se o campo 'email', possui um email válido)
+        //verifica se o usuário está logado (a priori, apenas verificando se o campo 'email', possui um email válido[o email válido é o gerado pelo banco])
         $user = User::where('email', $request->email)->first();
         if(!$user){
             return response()->json(['message'=> 'Usuario precisa estar logado'],400);
