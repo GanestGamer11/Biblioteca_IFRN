@@ -11,6 +11,7 @@ $options = array(
     "6" => "Sair"                
 );
 
+// Aqui, temos o email de um suposto usuário logado sendo passado por padrão no corpo do formulário
 $formulario_base = array(
     "email" => "admin@admin.com",
     "titulo" => "",
