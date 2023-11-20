@@ -13,7 +13,7 @@ Clone o repositório
 
     git clone https://github.com/GanestGamer11/Biblioteca_IFRN.git
 
-Entre na pasta e instale as requisições
+Entre na pasta -API_Biblioteca- e instale as requisições
 
     composer install
 
