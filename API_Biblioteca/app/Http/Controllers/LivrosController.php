@@ -23,14 +23,19 @@ class LivrosController extends Controller
      */
     public function store(Request $request)
     {     
-        //verifica se o usuário está logado (a priori, apenas verificando se o campo 'email', possui um email válido[o email válido é o gerado pelo banco])
-        $user = User::where('email', $request->email)->first();
-        if(!$user){
-            return response()->json(['message'=> 'Usuario precisa estar logado'],400);
+        if($request->bearerToken()){
+            //verifica se o usuário está logado (a priori, apenas verificando se o campo 'email', possui um email válido[o email válido é o gerado pelo banco])
+            $user = User::where('email', $request->email)->first();
+            if(!$user){
+                return response()->json(['message'=> 'Usuario precisa estar logado'],400);
+            }
+            $livro  = Livro::create($request->all());
+            $livro->save();
+            return response()->json(['message' => 'Livro cadastrado'], 201);
+        }else{
+            return response()->json(['message' => 'Você precisa estar autenticado'], 401);
         }
-        $livro  = Livro::create($request->all());
-        $livro->save();
-        return response()->json(['message' => 'Livro cadastrado'], 201);
+        
     }
 
     /**
@@ -50,17 +55,22 @@ class LivrosController extends Controller
      */
     public function update(Request $request, int $id)
     {
-        //verifica se o usuário está logado (a priori, apenas verificando se o campo 'email', possui um email válido)
-        $user = User::where('email', $request->email)->first();
-        if(!$user){
-            return response()->json(['message'=> 'Usuario precisa estar logado'],400);
+        if($request->bearerToken()){
+            //verifica se o usuário está logado (a priori, apenas verificando se o campo 'email', possui um email válido)
+            $user = User::where('email', $request->email)->first();
+            if(!$user){
+                return response()->json(['message'=> 'Usuario precisa estar logado'],400);
+            }
+            $livro = Livro::find($id);
+            if (!$livro) {
+                return response()->json(['message' => 'Livro não encontrado'], 404);
+            }
+            $livro->update($request->all());
+            return response()->json(['message' => 'Livro editado'], 200);
+        }else{
+            return response()->json(['message' => 'Você precisa estar autenticado'], 401);
         }
-        $livro = Livro::find($id);
-        if (!$livro) {
-            return response()->json(['message' => 'Livro não encontrado'], 404);
-        }
-        $livro->update($request->all());
-        return response()->json(['message' => 'Livro editado'], 200);
+        
     }
 
     /**
@@ -68,12 +78,17 @@ class LivrosController extends Controller
      */
     public function destroy(int $id)
     {
-        //aqui verificaria se o usuario está logado e é admin
-        $livro = Livro::find($id);
-        if (!$livro) {
-            return response()->json(['message' => 'Livro não encontrado'], 404);
+        if($request->bearerToken()){
+            //aqui verificaria se o usuario está logado e é admin
+            $livro = Livro::find($id);
+            if (!$livro) {
+                return response()->json(['message' => 'Livro não encontrado'], 404);
+            }
+            $livro->delete();
+            return response()->json(['message' => 'Livro deletado'], 200);
+        }else{
+            return response()->json(['message' => 'Você precisa estar autenticado'], 401);
         }
-        $livro->delete();
-        return response()->json(['message' => 'Livro deletado'], 200);
+        
     }
 }

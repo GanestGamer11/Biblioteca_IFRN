@@ -10,7 +10,16 @@ servers:
         default: localhost
       porta:
         default: '8000'
-        
+components:
+  securitySchemes:
+    bearerAuth:           
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    UnauthorizedError:
+      description: Você precisa estar autenticado
+
 paths:
   /livros:
     get:
@@ -64,9 +73,10 @@ paths:
       responses:
         '201':
           description: Livro cadastrado
-        '400':
-          description: Usuario precisa estar logado
-
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      security:
+        - bearerAuth: []
   /livros/{id}:
     get:
       summary: exibir um livro
@@ -132,10 +142,12 @@ paths:
       responses:
         200:
           description: Livro editado
-        400:
-          description: Usuario precisa estar logado
         404:
           description: Livro não encontrado.
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+      security:
+        - bearerAuth: []
     delete:
       summary: deletar um livro
       description: deleta um livro do banco de dados
@@ -149,8 +161,10 @@ paths:
       responses:
         200:
           description: Livro deletado
-        400:
-          description: Usuario precisa estar logado
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
         404:
           description: Livro não encontrado
+      security:
+        - bearerAuth: []
     
