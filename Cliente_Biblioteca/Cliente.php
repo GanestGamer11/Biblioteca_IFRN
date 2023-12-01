@@ -19,6 +19,7 @@ $formulario_base = array(
     "descricao" => "",
     "editora" => "",
     "genero" => "",
+    "Authorization:" => "Bearer {token}"
 );
 
 popen("cls","w");
