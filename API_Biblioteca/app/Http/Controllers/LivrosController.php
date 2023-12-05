@@ -76,11 +76,11 @@ class LivrosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(int $id)
+    public function destroy(Request $request)
     {
         if($request->bearerToken()){
-            //aqui verificaria se o usuario está logado e é admin
-            $livro = Livro::find($id);
+            // aqui verificaria se o usuario está logado e é admin
+            $livro = Livro::find($request->id);
             if (!$livro) {
                 return response()->json(['message' => 'Livro não encontrado'], 404);
             }
