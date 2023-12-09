@@ -3,6 +3,7 @@
 use App\Http\Controllers\LivrosController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\VerificarTokenSUAP;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('livros', [LivrosController::class, 'index']);
-Route::post('livros', [LivrosController::class, 'store']);
+Route::post('livros', [LivrosController::class, 'store'])->middleware(VerificarTokenSUAP::class);
 Route::get('livros/{id}', [LivrosController::class, 'show']);
-Route::put('livros/{id}', [LivrosController::class, 'update']);
-Route::delete('livros/{id}', [LivrosController::class, 'destroy']);
+Route::put('livros/{id}', [LivrosController::class, 'update'])->middleware(VerificarTokenSUAP::class);
+Route::delete('livros/{id}', [LivrosController::class, 'destroy'])->middleware(VerificarTokenSUAP::class);
 
 

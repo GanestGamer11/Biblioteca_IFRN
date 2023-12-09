@@ -24,14 +24,9 @@ class LivrosController extends Controller
      */
     public function store(Request $request)
     {     
-        Log::info('Token no Cadastro: ' . $request->bearerToken());
-        if($request->bearerToken()){
-            $livro  = Livro::create($request->all());
-            $livro->save();
-            return response()->json(['message' => 'Livro cadastrado'], 201);
-        }else{
-            return response()->json(['message' => 'Você precisa estar autenticado'], 401);
-        }
+        $livro  = Livro::create($request->all());
+        $livro->save();
+        return response()->json(['message' => 'Livro cadastrado'], 201);
     }
 
     /**
@@ -51,15 +46,9 @@ class LivrosController extends Controller
      */
     public function update(Request $request)
     {
-        if($request->bearerToken()){
-            $livro = Livro::find($request->id);
-            
-            $livro->update($request->all());
-            return response()->json(['message' => 'Livro editado'], 200);
-        }else{
-            return response()->json(['message' => 'Você precisa estar autenticado'], 401);
-        }
-        
+        $livro = Livro::find($request->id);
+        $livro->update($request->all());
+        return response()->json(['message' => 'Livro editado'], 200);
     }
 
     /**
@@ -67,13 +56,8 @@ class LivrosController extends Controller
      */
     public function destroy(Request $request)
     {
-        Log::info('Token no delete: ' . $request->bearerToken());
-        if($request->bearerToken()){
-            $livro = Livro::find($request->id);
-            $livro->delete();
-            return response()->json(['message' => 'Livro deletado'], 200);
-        }else{
-            return response()->json(['message' => 'Você precisa estar autenticado'], 401);
-        }
+        $livro = Livro::find($request->id);
+        $livro->delete();
+        return response()->json(['message' => 'Livro deletado'], 200);
     }
 }
