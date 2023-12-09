@@ -74,7 +74,7 @@ paths:
         '201':
           description: Livro cadastrado
         '401':
-          $ref: '#/components/responses/UnauthorizedError'
+          description: 'Voce precisa estar autenticado'
       security:
         - bearerAuth: []
   /livros/{id}:
@@ -108,7 +108,7 @@ paths:
                     type: string
                   genero:
                     type: string
-        '502':
+        '404':
           description: O livro não existe
     put:
       summary: editar um livro
@@ -145,7 +145,7 @@ paths:
         404:
           description: Livro não encontrado.
         '401':
-          $ref: '#/components/responses/UnauthorizedError'
+          description: 'Voce precisa estar autenticado'
       security:
         - bearerAuth: []
     delete:
@@ -162,7 +162,7 @@ paths:
         200:
           description: Livro deletado
         '401':
-          $ref: '#/components/responses/UnauthorizedError'
+          description: 'Voce precisa estar autenticado'
         404:
           description: Livro não encontrado
       security:

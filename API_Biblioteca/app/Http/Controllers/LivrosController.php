@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Livro;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Exception;
 
 class LivrosController extends Controller
@@ -23,19 +24,14 @@ class LivrosController extends Controller
      */
     public function store(Request $request)
     {     
+        Log::info('Token no Cadastro: ' . $request->bearerToken());
         if($request->bearerToken()){
-            //verifica se o usuário está logado (a priori, apenas verificando se o campo 'email', possui um email válido[o email válido é o gerado pelo banco])
-            $user = User::where('email', $request->email)->first();
-            if(!$user){
-                return response()->json(['message'=> 'Usuario precisa estar logado'],400);
-            }
             $livro  = Livro::create($request->all());
             $livro->save();
             return response()->json(['message' => 'Livro cadastrado'], 201);
         }else{
             return response()->json(['message' => 'Você precisa estar autenticado'], 401);
         }
-        
     }
 
     /**
@@ -45,7 +41,7 @@ class LivrosController extends Controller
     {
         $livro = Livro::find($id);
         if (!$livro) {
-            return response()->json(['message' => 'O livro não existe'], 502);
+            return response()->json(['message' => 'O livro nao existe'], 404);
         }
         return response()->json(['message' => 'Livro encontrado', "result" => $livro], 200);
     }
@@ -53,18 +49,11 @@ class LivrosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request)
     {
         if($request->bearerToken()){
-            //verifica se o usuário está logado (a priori, apenas verificando se o campo 'email', possui um email válido)
-            $user = User::where('email', $request->email)->first();
-            if(!$user){
-                return response()->json(['message'=> 'Usuario precisa estar logado'],400);
-            }
-            $livro = Livro::find($id);
-            if (!$livro) {
-                return response()->json(['message' => 'Livro não encontrado'], 404);
-            }
+            $livro = Livro::find($request->id);
+            
             $livro->update($request->all());
             return response()->json(['message' => 'Livro editado'], 200);
         }else{
@@ -78,17 +67,13 @@ class LivrosController extends Controller
      */
     public function destroy(Request $request)
     {
+        Log::info('Token no delete: ' . $request->bearerToken());
         if($request->bearerToken()){
-            // aqui verificaria se o usuario está logado e é admin
             $livro = Livro::find($request->id);
-            if (!$livro) {
-                return response()->json(['message' => 'Livro não encontrado'], 404);
-            }
             $livro->delete();
             return response()->json(['message' => 'Livro deletado'], 200);
         }else{
             return response()->json(['message' => 'Você precisa estar autenticado'], 401);
         }
-        
     }
 }
